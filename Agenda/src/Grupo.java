@@ -23,11 +23,11 @@ public class Grupo {
             sc.nextLine(); // Consumir salto de línea
 
             switch (opcion) {
-                case 1 -> listarCategorias();
+                case 1 -> listarGrupo();
                 case 2 -> buscarCategoriaPorId();
-                case 3 -> crearCategoria();
-                case 4 -> actualizarCategoria();
-                case 5 -> borrarCategoria();
+                case 3 -> crearGrupo();
+                case 4 -> actualizarGrupo();
+                case 5 -> borrarGrupo();
                 case 6 -> System.out.println("Saliendo...");
                 default -> System.out.println("Opción no válida.");
             }
@@ -47,7 +47,7 @@ public class Grupo {
         System.out.print("Elige una opción: ");
     }
 
-    private static void listarCategorias() {
+    private static void listarGrupo() {
         List<GrupoDTO> grupos = grupoDAO.findAll();
         for(GrupoDTO grupo : grupos){
             System.out.println(grupo);
@@ -66,7 +66,7 @@ public class Grupo {
         }
     }
 
-    private static void crearCategoria() {
+    private static void crearGrupo() {
         System.out.print("Introduce nombre: ");
         String name = sc.nextLine();
         System.out.print("Introduce ultima actualización: ");
@@ -76,17 +76,15 @@ public class Grupo {
         System.out.println("Grupo creada con ID: " + nuevo.getId_grupo());
     }
 
-    private static void actualizarCategoria() {
+    private static void actualizarGrupo() {
         System.out.print("Introduce ID de la grupo a actualizar: ");
         int id = sc.nextInt();
         sc.nextLine();
         GrupoDTO grupo = grupoDAO.findById(id);
         if (grupo != null) {
-            System.out.print("Nuevo nombre (" + grupo.getName() + "): ");
+            System.out.print("Nuevo nombre (" + grupo.getNombre_grupo() + "): ");
             String name = sc.nextLine();
-            System.out.print("Nueva ultima actualización (" + grupo.getLast_update() + "): ");
-            String last_update = sc.nextLine();
-            grupo.setName(name.isEmpty() ? grupo.getName() : name);
+            grupo.setNombre_grupo(name.isEmpty() ? grupo.getNombre_grupo() : name);
             grupoDAO.update(grupo);
             System.out.println("Grupo actualizado.");
         } else {
@@ -94,7 +92,7 @@ public class Grupo {
         }
     }
 
-    private static void borrarCategoria() {
+    private static void borrarGrupo() {
         System.out.print("Introduce ID de la grupo a borrar: ");
         int id = sc.nextInt();
         sc.nextLine();
